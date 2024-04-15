@@ -9,6 +9,7 @@ class Reader:
         self.on_add_cbs = []
         self.on_update_cbs = []
         self.on_cancel_cbs = []
+        self.on_exec_cbs = []
 
     def read(self):
         if self._is_gz_file():
@@ -23,7 +24,7 @@ class Reader:
                 for line_str in lines:
                     self._process_line(line_str)
 
-    def sub_on_add(self, cb : Callable[[Order], None]):
+    def sub_on_add(self, cb : Callable[[Order], int]):
         self.on_add_cbs.append(cb)
 
     def sub_on_update(self, cb : Callable[[Order], None]):
@@ -31,6 +32,9 @@ class Reader:
 
     def sub_on_cancel(self, cb : Callable[[Order], None]):
         self.on_cancel_cbs.append(cb)
+
+    def sub_on_exec(self, cb : Callable[[Order], None]):
+        self.on_exec_cbs.append(cb)
 
     def _process_line(self, line_str : str):
         line = line_str.split(' ')
