@@ -1,34 +1,51 @@
 #!/bin/bash
 
+run()
+{
+    echo "Running: $1"
+    eval "$1"
+}
+
 Check()
 {
 
-    echo "Checking correctness againts small test sample"
+    echo "Checking correctness againts small test sample\n"
     cmd="python3 run_book.py -i data/input/check.txt -o data/output/check.txt"
-    echo "$cmd"
-    eval "$cmd"
+    run "$cmd"
+
     cmd="diff data/output/check_golden.txt  data/output/check.txt"
-    echo "$cmd"
-    eval "$cmd"
+    run "$cmd"
+
+    if [ $? -eq 0 ]
+    then
+      echo "No differences between the golden output and your output!"
+    else
+      echo "There were differences between the golden output and your output :("
+    fi
 }
 
 Run()
 {
     echo "Checking correctness agaisnt full orders file"
     cmd="python3 run_book.py -i data/input/test.txt -o data/output/test.txt"
-    echo "$cmd"
-    eval "$cmd"
+    run "$cmd"
+
     cmd="diff data/output/golden.txt  data/output/test.txt"
-    echo "$cmd"
-    eval "$cmd"
+    run "$cmd"
+
+    if [ $? -eq 0 ]
+    then
+      echo "No differences between the golden output and your output!"
+    else
+      echo "There were differences between the golden output and your output :("
+    fi
 }
 
 Time()
 {
     echo "Timing run on full orders file"
     cmd="time python3 run_book.py -i data/input/test.txt -o data/output/test_time.txt"
-    echo "$cmd"
-    eval "$cmd"
+    run "$cmd"
 }
 
 tar xf data.tar.gz
@@ -46,6 +63,4 @@ while getopts ":crt" option; do
             break;;
     esac
 done
-
-echo "Finished running!"
             
