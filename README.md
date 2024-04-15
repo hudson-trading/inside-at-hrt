@@ -1,12 +1,12 @@
 # inside-at-hrt
 Coding workshop for Inside@HRT.
 
-There are many teams at HRT that write code for a variety of use cases. Common to all teams is a focus on correctness, efficiency, and maintainable code.
+There are many teams at HRT that write code for a variety of use cases. Common to all teams is a focus on correctness, efficiency, and maintainability.
 This workshop will give you a taste of engineering at HRT and introduce you some key concepts in the industry.
 
 When HRT wants to trade any given product on an exchange, the first step is getting market data for the exchange order book. The order book is a list of orders representing all the outstanding interest of buyers and sellers, organized by price level. Whenever a new order arrives that would satisfy an existing order on the book, the exchange will inform the two parties that a trade took place and modify the existing order as necessary (either removing it or reducing its quantity).
 
-In many types of trading that HRT does, it is useful to keep track of the individual orders resting on the exchange's book. So in this workshop exercise, we will build a data structure that maintains the state of the book as it processes order updates. These order updates can include add, deletes, executions, and updates that apply to specific orders. As an optional followup, we will leverage out book builder code to build a matching engine. 
+In many types of trading that HRT does, it is useful to keep track of the individual orders resting on the exchange's book. So in this workshop exercise, we will build a class that maintains the state of the book as it processes order updates. These order updates can include adds, deletes, executions, and updates that apply to specific orders. As an optional followup, we will leverage our book builder code to build a matching engine. 
 
 ## Quick Start
 ### Running the Code
@@ -22,19 +22,19 @@ We recommend making progress in the following order
 An order book keeps track of open orders. 
 
 There are four relevant events that can modify our order book: 
-1. Add: A new order added to the book
-1. Update: An update (price, size) to a resting order on the book
-1. Exec: An execution (full or partial) to a resting or incoming order 
-1. Cancel: A cancellation (full or partial) to a resting order on the book
+1. Add: A new order added to the book.
+1. Update: An update (price, size) to a resting order on the book.
+1. Exec: An execution (full or partial) to an incoming order and one/more resting orders.
+1. Cancel: A cancellation (full or partial) to a resting order on the book.
 
 These updates are applied to our book via callbacks. A callback is a function that can be configured to be invoked under specific circumstances.
 A class can define and subscribe its callbacks to an upstream object. Conversely, a class can have a list of downstream callbacks that it promises to invoke.
 It is common to use callbacks for clean and extendable data flow.
 
-Our order book exposes a couple of functions view or track the state of the orders:
-1. get_best_bids(symbol): Returns a list of orders at the best (highest) bid price for the symbol. Orders within this list are sorted by the time they were added to the Book (price-time priority).
-1. get_best_asks(symbol): Returns a list of orders at the best (lowest) ask price for the symbol. Orders within this list are sorted by the time they were added to the Book (price-time priority).
-1. sub_on_inside(cb): Subscribes a callback to be invoked when the price or size of orders at the best bid/ask changes.
+Our order book exposes a couple of functions to view or track the state of the orders:
+1. `get_best_bids(symbol)`: Returns a list of orders at the best (highest) bid price for the symbol. Orders within this list are sorted by the time they were added to the Book (price-time priority).
+1. `get_best_asks(symbol)`: Returns a list of orders at the best (lowest) ask price for the symbol. Orders within this list are sorted by the time they were added to the Book (price-time priority).
+1. `sub_on_inside(cb)`: Subscribes a callback to be invoked when the price or size of orders at the best bid/ask changes.
 
 
 You can find the skeleton code in `Book.py`. 
@@ -55,13 +55,13 @@ There are three relevant events that can modify the state of the matching engine
 
 ## Submission
 This exercise is not intended to be finished in a few hours so no sweat if you didn't get to all of it. We're mostly interested in seeing your ideas.
-Some guidance for your submission
-1. Prioritize your work in order of what's listed in [Quick Start](#quick-start)
-1. Document your code. If you have ideas you couldn't fully execute, document your intentions
-1. Write clean code. Your code doesn't have to be production ready but try to use clear variable names and reduce code repetition
+Some guidance for your submission:
+1. Prioritize your work in order of what's listed in [Quick Start](#quick-start).
+1. Document your code. If you have ideas you couldn't fully execute, document your intentions, e.g., specific data structures.
+1. Write clean code. Your code doesn't have to be production ready but try to use descriptive variable names and reduce code repetition.
 
 
-Run the following
+Run the following:
 ```
 $ ./run_test.sh -c > submit.txt
 $ ./run_test.sh -t 2>> submit.txt
