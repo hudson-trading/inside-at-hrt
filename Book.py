@@ -35,14 +35,16 @@ class Book:
         # TODO implement
         pass
 
-    # Returns a list of orders at the best Bid price. The best Ask price is the
-    # lowest price of all Ask orders for a symbol.
+    # Returns a list of orders at the best Bid price. The best Bid price is the
+    # highest price of all Bid orders for a symbol. The output must be sorted by
+    # price-time priority.
     def get_best_bids(self, symbol : str) -> list[Order]:
         # TODO implement
         return []
 
     # Returns a list of orders at the best Ask price. The best Ask price is the
-    # lowest price of all Ask orders for a symbol.
+    # lowest price of all Ask orders for a symbol. The ouput must be sorted by 
+    # price-time priority.
     def get_best_asks(self, symbol : str) -> list[Order]:
         # TODO implement
         return []
@@ -51,6 +53,7 @@ class Book:
     # Subscribes a callback `cb` that is invoked when the inside changes.
     # The inside refers to the best bid or ask. The inside changes if the 
     # price or size of best bid/ask for the symbol changes.
+    # The callback is to be invoked with the symbol and Side that changed.
     def sub_on_inside(self, cb : Callable[[ str, Side],None]) -> None:
         # TODO implement
         pass

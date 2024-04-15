@@ -17,7 +17,7 @@ class MatchingEngine:
         return -1
 
     # Callback to be invoked when an update order is submitted to the matching engine.
-    # Reject any orders that make the price more aggressive.
+    # Reject any orders that increase the size.
     def on_update(self, order : Order) -> None:
         pass
 
@@ -30,19 +30,19 @@ class MatchingEngine:
 
 
     # Invoke downstream callbacks on a new order.
-    def _on_add(self, order : Order) -> None:
+    def _call_on_add(self, order : Order) -> None:
         [book.on_add(order) for book in self._subscribed_books]
 
     # Invoke downstream callbacks on an update.
-    def _on_update(self, order : Order) -> None:
+    def _call_on_update(self, order : Order) -> None:
         [book.on_update(order) for book in self._subscribed_books]
 
     # Invoke downstream callbacks on a cancel.
-    def _on_cancel(self, order :Order) -> None:
+    def _call_on_cancel(self, order :Order) -> None:
         [book.on_cancel(order) for book in self._subscribed_books]
 
     # Invoke downstream callbacks on an exec.
-    def _on_exec(self, order :Order) ->None:
+    def _call_on_exec(self, order :Order) ->None:
         [book.on_exec(order) for book in self._subscribed_books]
 
     # Invoke downstream callbacks on a reject.
