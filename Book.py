@@ -6,21 +6,21 @@ class Book:
     def __init__(self):
         pass
 
-    # Callback to be invoked on a new order.
+    # Adds a new order to the book. Returns the refnum of the order.
     def on_add(self, order : Order) -> int:
         # TODO implement
         return order.refnum
 
-    # Callback to be invoked on an update to an existing order
-    # The Update order contains the refnum of the order it is updating. An update may 
+    # Updates an existing order on the book.
+    # `order` contains the refnum of the order it is updating. An update may 
     # only change the price and/or size. It cannot change the symbol or side of the order.
     # Updates must maintain PIQ (place-in-queue).
     def on_update(self, order : Order) -> None:
         # TODO implement
         pass
 
-    # Callback to be invoked on a Cancel. A Cancel order only contains
-    # the symbol and the refnum and size.
+    # Cancels an order. 
+    # `order` only contains the symbol and the refnum and size.
     # A size of 0 indicates that the order is to be removed entirely.
     # A size greater than 0 indicates only `size` number of shares should be cancelled.
     # Cancels with non-0 size must maintain PIQ (place-in-queue).
@@ -29,7 +29,7 @@ class Book:
         # TODO implement
         pass
 
-    # Callback to be invoked on an execution of an order.
+    # Executes an order.
     # NOTE: Can be left unimplemented until the MatchingEngine followup.
     def on_exec(self, order : Order) -> None:
         # TODO implement

@@ -40,7 +40,6 @@ Our order book exposes a couple of functions to view or track the state of the o
 You can find the skeleton code in `Book.py`. 
 
 
-
 ## Matching Engine (Extension!)
 A matching engine is used by exchanges to match orders from prospective buyers and sellers.
 
@@ -52,6 +51,8 @@ There are three relevant events that can modify the state of the matching engine
 1. New: A new order. The matching engine will attempt to match this incoming order against a resting order on the book using price-time priority. The incoming order may partially or fully executed. If the incoming order is partially executed, it must be added to the book. The resting order may be partially or fully executed. If the resting order is fully executed, it must be removed from the book. Reminder: A trade involves 2 or more executions (at least one per side). 
 2. Update. An update to an existing order. If the order does not exist, the matching engine must reject the order. Similarly, if the order attempts to increase the size, the matching engine must reject the order.
 3. Cancel: A cancellation of an existing order. If the order does not exist, the matching engine must reject the order.
+
+You can find the skeleton code in `MatchingEngine.py`. 
 
 ## Submission
 This exercise is not intended to be finished in a few hours so no sweat if you didn't get to all of it. We're mostly interested in seeing your ideas.

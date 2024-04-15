@@ -6,23 +6,25 @@ class MatchingEngine:
         self._subscribed_books = []
         self._on_reject_cbs = []
 
-    # Callback to be invoked when a new order is submitted to the matching engine.
+    # Handles a new order submitted to the matching engine.
     # `refnum` is unpopulated on `order`. If the incoming `order` matches a resting order,
-    # execute both orders. If `order` still needs to be added to the book, generate a
-    # unique, positive refnum for the order before adding it to the book and invoking 
-    # downstream callbacks. 
-    # Return the order's refnum if the order was added to the book. Return -1 if
+    # both orders are executed. If `order` still needs to be added to the book, a
+    # unique, positive refnum is generated and set on the order before the order is 
+    # added to the book and downstream callbacks are invoked.
+    # Returns the order's refnum if the order was added to the book. Returns -1 if
     # no order was added.
     def on_new(self, order : Order) -> int:
         return -1
 
-    # Callback to be invoked when an update order is submitted to the matching engine.
-    # Reject any orders that increase the size.
+
+    # Handles an order update submitted to the matching engine.
+    # Rejects any orders that increase the size.
     def on_update(self, order : Order) -> None:
         pass
 
 
-    # Callback to be invoked when an order is cancelled. Partial cancels are acceptable.
+    # Handles an order cancellation submitted to the matching engine. 
+    # Partial cancels are acceptable.
     # A size of 0 indicates cancelling all shares of an order.
     # Price and Side are not expected to be populated.
     def on_cancel(self, order : Order) -> None:
