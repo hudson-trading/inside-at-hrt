@@ -44,17 +44,21 @@ class Reader:
 
         order = Order(symbol, refnum)
         if action == "add":
-                order.side = Side[line[3]]
-                order.size = float(line[4])
-                order.price = float(line[6])
-                [cb(order) for cb in self.on_add_cbs]
+            order.side = Side[line[3]]
+            order.size = float(line[4])
+            order.price = float(line[6])
+            [cb(order) for cb in self.on_add_cbs]
         elif action == "update":
+            order.side = Side[line[3]]
+            order.size = float(line[4])
+            order.price = float(line[6])
+            [cb(order) for cb in self.on_update_cbs]
+        elif action == "cancel":
+            if len(line) == 7:
                 order.side = Side[line[3]]
                 order.size = float(line[4])
                 order.price = float(line[6])
-                [cb(order) for cb in self.on_update_cbs]
-        elif action == "cancel":
-                [cb(order) for cb in self.on_cancel_cbs]
+            [cb(order) for cb in self.on_cancel_cbs]
         else:
             raise Exception("Unsupported action ", action)
 
