@@ -29,6 +29,7 @@ if __name__=="__main__":
         else:
             raise Exception("Invalid side")
 
+    b.sub_on_inside(on_inside)
 
     m = None
     if args.matching:
